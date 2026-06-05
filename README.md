@@ -1,9 +1,6 @@
 # 🫁 Deep Learning Based Pneumonia Detection
 ## with NLP-Driven Clinical Explanation System
 
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
-[![PyTorch 2.x](https://img.shields.io/badge/PyTorch-2.x-orange.svg)](https://pytorch.org)
-[![Kaggle](https://img.shields.io/badge/Dataset-Kaggle-blue.svg)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
 
 ---
 
@@ -16,22 +13,6 @@ A production-grade AI system that:
 3. **Quantifies uncertainty** using **Monte Carlo Dropout** (epistemic uncertainty over N stochastic forward passes).
 4. **Generates clinical reports** via an **NLP Explanation Engine** combining rule-based medical language templates with confidence- and uncertainty-aware text selection.
 
----
-
-## 📁 Project Structure
-
-```
-pneumonia_detection/
-├── notebooks/
-│   ├── pneumonia_detection_main.ipynb   ← Main Kaggle notebook (full pipeline)
-│   └── multiclass_subtype.ipynb         ← Bacterial vs Viral classification
-├── src/
-│   ├── model.py        ← PneumoniaNet (EfficientNetB3 + MC Dropout + Grad-CAM)
-│   ├── dataset.py      ← ChestXRayDataset, MultiClassXRayDataset, transforms
-│   ├── trainer.py      ← Trainer class, training loops, metrics
-│   └── nlp_engine.py   ← ClinicalExplanationEngine (NLP report generation)
-└── README.md
-```
 
 ---
 
@@ -41,22 +22,6 @@ pneumonia_detection/
 **Chest X-Ray Images (Pneumonia)**  
 📦 [kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
 
-| Split | NORMAL | PNEUMONIA | Total |
-|-------|--------|-----------|-------|
-| Train | 1,341  | 3,875     | 5,216 |
-| Val   | 8      | 8         | 16    |
-| Test  | 234    | 390       | 624   |
-
-The PNEUMONIA folder contains files prefixed `bacteria_*` and `virus_*`, enabling 3-class subtype classification.
-
-### Optional Additional Datasets (for experiments)
-| Dataset | Link | Use |
-|---------|------|-----|
-| NIH ChestX-ray14 | [kaggle.com/datasets/nih-chest-xrays/data](https://www.kaggle.com/datasets/nih-chest-xrays/data) | 14 thoracic diseases, larger scale |
-| CheXpert | [stanfordmlgroup.github.io/competitions/chexpert](https://stanfordmlgroup.github.io/competitions/chexpert/) | Stanford dataset with uncertainty labels |
-| RSNA Pneumonia Detection | [kaggle.com/competitions/rsna-pneumonia-detection-challenge](https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge) | Detection + localisation |
-
----
 
 ## 🚀 Running on Kaggle
 
@@ -129,39 +94,5 @@ EfficientNetB3 Backbone (pretrained ImageNet)
 | `inference_output.png` | Full pipeline inference display |
 | `test_predictions.csv` | All test predictions with confidence |
 
----
 
-## 🔧 Key Dependencies
 
-```
-torch>=2.0          # Deep learning framework
-torchvision>=0.15   # Image transforms
-timm>=0.9           # EfficientNet pretrained models
-scikit-learn        # Metrics
-opencv-python       # Grad-CAM heatmap overlay
-matplotlib          # Visualizations
-seaborn             # Confusion matrix plots
-pandas / numpy      # Data handling
-tqdm                # Progress bars
-```
-
----
-
-## 💡 Extending the Project
-
-- **Replace EfficientNetB3** with DenseNet121, ViT-B/16, or ConvNeXt for comparison
-- **Swap NLP engine** with a fine-tuned clinical language model (e.g., BioGPT, ClinicalBERT) for more natural language generation
-- **Add segmentation head** (U-Net branch) for lung region segmentation before classification
-- **Deploy as FastAPI service** — wrap `full_inference_pipeline()` in a REST endpoint
-
----
-
-## ⚠️ Disclaimer
-
-This project is for **educational and research purposes only**.  
-It is **not** a certified medical device and should **not** be used for clinical diagnosis.  
-Always consult qualified medical professionals for healthcare decisions.
-
----
-
-*Built with EfficientNetB3, Grad-CAM, Monte Carlo Dropout, and NLP-driven clinical explanations.*
